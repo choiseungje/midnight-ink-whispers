@@ -1,12 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import Header from '@/components/Header';
+import MessageEditor from '@/components/MessageEditor';
+import MessagePreview from '@/components/MessagePreview';
+import AIAssistant from '@/components/AIAssistant';
 
 const Index = () => {
+  const [draftMessage, setDraftMessage] = useState('');
+
+  const handleSuggestionSelect = (suggestion: string) => {
+    setDraftMessage(suggestion);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-midnight to-midnight">
+      <Header />
+      
+      <main className="flex-grow p-4 md:p-6 lg:p-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-6 space-y-6">
+            <MessageEditor />
+            <MessagePreview message={draftMessage} />
+          </div>
+          
+          <div className="lg:col-span-6">
+            <AIAssistant onSuggestionSelect={handleSuggestionSelect} />
+          </div>
+        </div>
+      </main>
+      
+      <footer className="text-center py-4 text-gray-500 text-xs">
+        <p>Anonymous messaging • All messages sent at 10:00 PM</p>
+      </footer>
     </div>
   );
 };
